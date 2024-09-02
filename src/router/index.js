@@ -18,7 +18,7 @@ const routes = [
     path: "/add-recette",
     name: "AddRecette",
     component: AddRecette,
-    props: route => ({ recette: route.query })
+   
   }
 ];
 

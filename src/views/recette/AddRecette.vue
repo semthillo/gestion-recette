@@ -3,8 +3,8 @@
     <router-link class="btn btn-info mt-3 mb-4" to="/list-recette">
       Liste de recettes
     </router-link>
-    <h3 v-if="!isEditing">Ajouter une recette</h3>
-    <h3 v-else>Modifier une recette</h3>
+    <h3 v-if="isEditing">Modifier une recette</h3>
+    <h3 v-else>Ajouter une recette</h3>
     <form @submit.prevent="onSubmit">
       <div class="mb-3">
         <label for="title" class="form-label">Titre de la recette</label>
@@ -75,16 +75,21 @@ const newRecette = ref({ titre: "", ingredients: "", type: "", image: "" });
 const imagePreview = ref(null);
 const isEditing = ref(false);
 
+const editRecette = (recette) => {
+  isEditing.value = true;
+  newRecette.value = { ...recette };
+  imagePreview.value = recette.image;
+};
+
 onMounted(() => {
-  const recette = route.params.recette;
-  if (recette) {
-    editRecette(recette);
+  if (store.currentIndex !== null) {
+    editRecette(store.recettes[store.currentIndex]);
   }
 });
 
-watch(() => route.params.recette, (newRecette) => {
-  if (newRecette) {
-    editRecette(newRecette);
+watch(() => store.currentIndex, (newIndex) => {
+  if (newIndex !== null) {
+    editRecette(store.recettes[newIndex]);
   }
 });
 
@@ -95,6 +100,7 @@ const onImageUrlChange = () => {
 const resetForm = () => {
   newRecette.value = { titre: "", ingredients: "", type: "", image: "" };
   imagePreview.value = null;
+  isEditing.value = false;
 };
 
 const onSubmit = () => {
@@ -116,15 +122,5 @@ const onSubmit = () => {
   }
   resetForm();
   router.push("/list-recette");
-};
-
-const editRecette = (recette) => {
-  const index = store.recettes.findIndex(r => r.titre === recette.titre && r.ingredients === recette.ingredients);
-  if (index !== -1) {
-    store.setCurrentRecetteIndex(index);
-    newRecette.value = { ...recette };
-    imagePreview.value = recette.image;
-    isEditing.value = true;
-  }
 };
 </script>
