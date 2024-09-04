@@ -66,7 +66,8 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { useGestionStore } from '../../store/gestion';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
 
 const store = useGestionStore();
 const router = useRouter();
