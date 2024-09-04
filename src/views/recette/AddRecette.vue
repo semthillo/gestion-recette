@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <router-link class="btn btn-info mt-3 mb-4" to="/list-recette">
       Liste de recettes
@@ -69,7 +70,7 @@ import { useRouter, useRoute } from 'vue-router';
 
 const store = useGestionStore();
 const router = useRouter();
-const route = useRoute();
+
 
 const newRecette = ref({ titre: "", ingredients: "", type: "", image: "" });
 const imagePreview = ref(null);

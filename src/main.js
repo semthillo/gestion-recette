@@ -4,7 +4,6 @@ import 'bootstrap';
 
 
 
-
 import { createApp } from 'vue'
 
 import App from './App.vue'
@@ -28,11 +27,12 @@ library.add(fab);
 import { far } from '@fortawesome/free-regular-svg-icons';
 library.add(far);
 import { dom } from "@fortawesome/fontawesome-svg-core";
-import Recette from './views/recette/recette.vue'
+
+
 
 dom.watch();
 
-app.component("Recette", Recette)
+
 
 app.use(pinia)
 app.use(router)
