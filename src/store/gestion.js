@@ -39,17 +39,16 @@ export const useGestionStore = defineStore("gestion", {
     addRecette(titre, ingredients, type, image) {
       this.recettes.push({ titre, ingredients, type, image });
     },
+
     removeRecette(index) {
-      if (index >= 0 && index < this.recettes.length) {
-        this.recettes.splice(index, 1);
-      }
+      this.recettes.splice(index, 1);
     },
+
     setCurrentRecetteIndex(index) {
       this.currentIndex = index;
     },
     editRecette(index, titre, ingredients, type, image) {
       if (index >= 0 && index < this.recettes.length) {
-        
         this.recettes[index] = { titre, ingredients, type, image };
       }
     },

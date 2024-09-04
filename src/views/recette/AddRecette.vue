@@ -76,19 +76,21 @@ const imagePreview = ref(null);
 const isEditing = ref(false);
 
 const editRecette = (recette) => {
-  isEditing.value = true;
-  newRecette.value = { ...recette };
-  imagePreview.value = recette.image;
+  if (recette) {
+    isEditing.value = true;
+    newRecette.value = { ...recette };
+    imagePreview.value = recette.image;
+  }
 };
 
 onMounted(() => {
-  if (store.currentIndex !== null) {
+  if (store.currentIndex !== null && store.currentIndex >= 0 && store.currentIndex < store.recettes.length) {
     editRecette(store.recettes[store.currentIndex]);
   }
 });
 
 watch(() => store.currentIndex, (newIndex) => {
-  if (newIndex !== null) {
+  if (newIndex !== null && newIndex >= 0 && newIndex < store.recettes.length) {
     editRecette(store.recettes[newIndex]);
   }
 });
@@ -124,3 +126,4 @@ const onSubmit = () => {
   router.push("/list-recette");
 };
 </script>
+
